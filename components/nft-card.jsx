@@ -1,5 +1,3 @@
-import React from "react";
-
 const NftCard = ({ name, description, image }) => {
   return (
     <div className="max-w-sm rounded-lg border shadow-md bg-gray-800 border-gray-700">
