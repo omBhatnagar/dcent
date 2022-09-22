@@ -1,5 +1,5 @@
-import Sidebar from "./shared/sidebar";
-import Topbar from "./Topbar";
+import Sidebar from "./sidebar";
+import Topbar from "./topbar";
 
 const Layout = ({ children }) => {
   return (
@@ -9,7 +9,9 @@ const Layout = ({ children }) => {
       </div>
       <div className="w-4/5 ml-1/5 h-full min-h-screen bg-background-light">
         <Topbar />
-        <div className="w-full mx-auto">{children}</div>
+        <div className="w-full mx-auto">
+          <div className="mx-6">{children}</div>
+        </div>
       </div>
     </div>
   );
