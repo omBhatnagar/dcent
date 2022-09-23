@@ -1,10 +1,20 @@
-import { createClient, configureChains, defaultChains, WagmiConfig } from 'wagmi';
 import { publicProvider } from 'wagmi/providers/public';
 import { SessionProvider } from 'next-auth/react';
 import { ChakraProvider } from '@chakra-ui/react';
 import '../styles/globals.css'
 import Layout from '../components/Layout'
-const { provider, webSocketProvider } = configureChains(defaultChains, [publicProvider()]);
+const { chains, provider, webSocketProvider } = configureChains(defaultChains, [publicProvider()]);
+import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
+import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
+import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
+import {
+  WagmiConfig,
+  createClient,
+  defaultChains,
+  configureChains,
+} from 'wagmi'
+
+
 
 const client = createClient({
   autoConnect: true,
