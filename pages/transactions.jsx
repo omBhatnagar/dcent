@@ -1,6 +1,5 @@
 import {
   Table,
-  TableCaption,
   TableContainer,
   Tbody,
   Td,
@@ -8,52 +7,66 @@ import {
   Th,
   Thead,
   Tr,
+  useColorModeValue,
+  Heading,
+  Box,
 } from "@chakra-ui/react";
 import React from "react";
 import { getSession } from "next-auth/react";
 import Moralis  from 'moralis';
+import { getEllipsisTxt } from "../utils/format";
 
 
 const transactions = ({transactions}) => {
-
-  console.log(transactions)
+  const hoverTrColor = useColorModeValue('gray.300', 'gray.700');
   return (
-    <div className="flex flex-col items-center justify-center h-screen gap-5">
-        <div>
-            <h1 className="text-3xl">See all current chain Transactions</h1>
-        </div>
-      <div className="w-[80vw] mx-auto">
-        <TableContainer>
-          <Table variant="simple">
-            <TableCaption>Imperial to metric conversion factors</TableCaption>
+    <>
+    <Heading size="lg" marginBottom={6} marginTop={10}>
+      Transactions
+    </Heading>
+    {transactions?.length ? (
+      <Box border="2px" borderColor={hoverTrColor} borderRadius="xl" padding="24px 18px">
+        <TableContainer w={'full'}>
+          <Table variant='striped' className="bg-gray-200">
             <Thead>
               <Tr>
-                <Th>from</Th>
-                <Th>to</Th>
+                <Th>Hash</Th>
+                <Th>From</Th>
+                <Th>To</Th>
+                <Th>Gas used</Th>
+                <Th>Date</Th>
                 <Th isNumeric>Status</Th>
               </Tr>
             </Thead>
             <Tbody>
-              
-                {transactions.map(trans => (
-                    <Tr>
-                        <Td>{trans.from}</Td>
-                        <Td>{trans.to}</Td>
-                        <Td>{trans.receiptStatus}</Td>
-                    </Tr>
-                ))}
+              {transactions?.map((tx) => (
+                <Tr key={tx?.hash} cursor="pointer">
+                  <Td>{getEllipsisTxt(tx?.hash || '')}</Td>
+                  <Td>{getEllipsisTxt(tx?.from || '')}</Td>
+                  <Td>{getEllipsisTxt(tx?.to || '')}</Td>
+                  <Td>{tx.gasUsed}</Td>
+                  <Td>{new Date(tx.blockTimestamp).toLocaleDateString()}</Td>
+                  <Td isNumeric>{tx.receiptStatus}</Td>
+                </Tr>
+              ))}
             </Tbody>
             <Tfoot>
               <Tr>
-                <Th>from</Th>
-                <Th>to</Th>
-                <Th isNumeric>status</Th>
+                <Th>Hash</Th>
+                <Th>From</Th>
+                <Th>To</Th>
+                <Th>Gas used</Th>
+                <Th>Date</Th>
+                <Th isNumeric>Status</Th>
               </Tr>
             </Tfoot>
           </Table>
         </TableContainer>
-      </div>
-    </div>
+      </Box>
+    ) : (
+      <Box>Looks Like you do not have any transactions</Box>
+    )}
+  </>
   );
 };
 
