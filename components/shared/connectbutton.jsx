@@ -1,8 +1,8 @@
 import { InjectedConnector } from "wagmi/connectors/injected";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useAccount, useConnect, useDisconnect, useSignMessage } from "wagmi";
-import apiPost from "../utils/apiPost";
-import { getEllipsisTxt } from "../utils/format";
+import apiPost from "../../utils/apiPost";
+import { getEllipsisTxt } from "../../utils/format";
 import { MetaMaskConnector } from "wagmi/connectors/metaMask";
 import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
@@ -18,9 +18,9 @@ import {
   Avatar,
   Text,
 } from "@chakra-ui/react";
-import metamask from "../assets/MetaMask.png";
-import coinbase from "../assets/coinbase.png";
-import walletconnect from "../assets/walletconnect.png";
+import metamask from "../../assets/MetaMask.png";
+import coinbase from "../../assets/coinbase.png";
+import walletconnect from "../../assets/walletconnect.png";
 import Image from "next/image";
 
 const wallets = [

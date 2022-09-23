@@ -1,4 +1,4 @@
-import ConnectButton from "./connectbutton";
+import ConnectButton from "./shared/connectbutton";
 
 const Topbar = () => {
   return (
