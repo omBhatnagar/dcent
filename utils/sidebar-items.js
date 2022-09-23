@@ -19,4 +19,10 @@ export const SidebarItems = [
     icon: <MdOutlineDashboard />,
     path: "/native",
   },
+  {
+    id: 3,
+    title: "Wallet",
+    icon: <MdOutlineDashboard />,
+    path: "/wallet",
+  },
 ];
