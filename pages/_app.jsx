@@ -2,7 +2,7 @@ import { publicProvider } from 'wagmi/providers/public';
 import { SessionProvider } from 'next-auth/react';
 import { ChakraProvider } from '@chakra-ui/react';
 import '../styles/globals.css'
-import Layout from '../components/Layout'
+import Layout from '../components/shared/layout'
 const { chains, provider, webSocketProvider } = configureChains(defaultChains, [publicProvider()]);
 import { CoinbaseWalletConnector } from 'wagmi/connectors/coinbaseWallet'
 import { MetaMaskConnector } from 'wagmi/connectors/metaMask'
