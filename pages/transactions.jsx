@@ -7,25 +7,41 @@ import {
   Th,
   Thead,
   Tr,
-  useColorModeValue,
   Heading,
   Box,
 } from "@chakra-ui/react";
-import React from "react";
-import { getSession } from "next-auth/react";
+import React, { useEffect, useState } from "react";
 import Moralis  from 'moralis';
 import { getEllipsisTxt } from "../utils/format";
 
 
-const transactions = ({transactions}) => {
-  const hoverTrColor = useColorModeValue('gray.300', 'gray.700');
+const transactions = () => {
+
+  const [transactions, setTransactions] = useState();
+
+  useEffect(() => {
+    (async () => {
+      await Moralis.start({
+        apiKey: 'VSrOoiuUp303vcqi8Od52Pg8kcZFhOKCBf3SfHP7eQYGl7GN2dfw4mbxoJCYvZAA',
+      });
+
+      const response = await Moralis.EvmApi.transaction.getWalletTransactions({
+        address: '0xABf3656c9AD45800171D582b83929B00C7F32b49',
+        chain: 3,
+        limit: 10
+      });
+      console.log("response", response.data.result);
+      setTransactions(response.data.result)
+    })();
+  }, []);
+
   return (
     <>
     <Heading size="lg" marginBottom={6} marginTop={10}>
       Transactions
     </Heading>
     {transactions?.length ? (
-      <Box border="2px" borderColor={hoverTrColor} borderRadius="xl" padding="24px 18px">
+      <Box border="2px" borderColor={'gray.300'} borderRadius="xl" padding="24px 18px">
         <TableContainer w={'full'}>
           <Table variant='striped' className="bg-gray-200">
             <Thead>
@@ -42,11 +58,11 @@ const transactions = ({transactions}) => {
               {transactions?.map((tx) => (
                 <Tr key={tx?.hash} cursor="pointer">
                   <Td>{getEllipsisTxt(tx?.hash || '')}</Td>
-                  <Td>{getEllipsisTxt(tx?.from || '')}</Td>
-                  <Td>{getEllipsisTxt(tx?.to || '')}</Td>
-                  <Td>{tx.gasUsed}</Td>
+                  <Td>{getEllipsisTxt(tx?.from_address || '')}</Td>
+                  <Td>{getEllipsisTxt(tx?.to_address || '')}</Td>
+                  <Td>{tx.gas}</Td>
                   <Td>{new Date(tx.blockTimestamp).toLocaleDateString()}</Td>
-                  <Td isNumeric>{tx.receiptStatus}</Td>
+                  <Td isNumeric>{tx.receipt_status}</Td>
                 </Tr>
               ))}
             </Tbody>
@@ -70,33 +86,6 @@ const transactions = ({transactions}) => {
   );
 };
 
-export const getServerSideProps = async (context) => {
-    const session = await getSession(context)
-
-
-await Moralis.start({
-    apiKey: process.env.MORALIS_API_KEY
-});
-
-if (!session?.user.address) {
-    return { props: { error: 'Connect your wallet first' } };
-  }
-
-  console.log(session);
-
-const response = await Moralis.EvmApi.transaction.getWalletTransactions({
-    address: session?.user?.address,
-    chain: session?.user?.chainId,
-    limit: 10
-});
-
-    return {
-        props: {
-            transactions: JSON.parse(JSON.stringify(response.result))
-        }
-    }
-
-}
 
 
 export default transactions;
