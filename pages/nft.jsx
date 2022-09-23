@@ -2,35 +2,44 @@ import { useEffect, useState } from "react";
 import Moralis from "moralis";
 import { EvmChain } from "@moralisweb3/evm-utils";
 import NftCard from "../components/nft-card";
-
-const address = "0x91417d13cfDa2D1Ac6860f825ad964eA8E4343f8";
+import { useAccount } from "wagmi";
 
 const chain = EvmChain.RINKEBY;
 
 const Nfts = () => {
 	const [nfts, setNfts] = useState();
 
+	const { address, isDisconnected } = useAccount();
+
 	useEffect(() => {
 		(async () => {
+			const chainId = await Moralis.getChainId();
+			console.log("CHAIN ID", chainId);
 			await Moralis.start({
 				apiKey: process.env.NEXT_PUBLIC_API_KEY,
 			});
-
-			const response = await Moralis.EvmApi.nft.getWalletNFTs({
-				address,
-				chain,
-			});
-			console.log(response.data.result);
-			setNfts(
-				response.data.result.map((item) => {
-					return JSON.parse(item.metadata);
-				}),
-			);
+			if (address) {
+				const response = await Moralis.EvmApi.nft.getWalletNFTs({
+					address,
+					chain,
+				});
+				console.log(response.data.result);
+				setNfts(
+					response.data.result.map((item) => {
+						return JSON.parse(item.metadata);
+					}),
+				);
+			}
 		})();
-	}, []);
+	}, [address]);
 
 	return (
 		<div className='flex flex-wrap justify-between items-center gap-y-12 bg-background-dark px-6'>
+			{isDisconnected && (
+				<div className='flex justify-center text-2xl text-bold h-[100vh] text-white items-center w-full'>
+					Please Connect Your Wallet
+				</div>
+			)}
 			{nfts?.map((nft) => {
 				const image =
 					nft.image.substring(0, 4) == "ipfs"
