@@ -1,89 +1,90 @@
 import {
-    Table,
-    TableCaption,
-    TableContainer,
-    Tbody,
-    Td,
-    Tfoot,
-    Th,
-    Thead,
-    Tr,
-  } from "@chakra-ui/react";
-  import React from "react";
-  import { getSession } from "next-auth/react";
-  import Moralis  from 'moralis';
-  
-  
-  const ERC20Balances = ({tokenBalance, error}) => {
-    console.log(tokenBalance)
-    console.log(error)
-    return (
-      <div className="flex flex-col items-center justify-center h-screen gap-5">
-          <div>
-              <h1 className="text-3xl">See all current chain Transactions</h1>
-          </div>
-        <div className="w-[80vw] mx-auto">
-          <TableContainer>
-            <Table variant="simple">
-              <TableCaption>Imperial to metric conversion factors</TableCaption>
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Tfoot,
+  Th,
+  Thead,
+  Tr,
+  Heading,
+  Box,
+} from "@chakra-ui/react";
+import React, { useEffect, useState } from "react";
+import Moralis from "moralis";
+import { getEllipsisTxt } from "../../utils/format";
+import { weiToEth } from "../../utils/weiToEth";
+
+const ERC20Balances = () => {
+  const [ERC20, setERC20] = useState();
+
+  useEffect(() => {
+    (async () => {
+      await Moralis.start({
+        apiKey:
+          "VSrOoiuUp303vcqi8Od52Pg8kcZFhOKCBf3SfHP7eQYGl7GN2dfw4mbxoJCYvZAA",
+      });
+
+      const response = await Moralis.EvmApi.token.getWalletTokenBalances({
+        address: "0xABf3656c9AD45800171D582b83929B00C7F32b49",
+        chain: 3,
+        limit: 10,
+      });
+      setERC20(response.data);
+    })();
+  }, []);
+
+  return (
+    <>
+      <Heading size="lg" marginBottom={6} marginTop={10}>
+        ERC20Balances
+      </Heading>
+      {ERC20?.length ? (
+        <Box
+          border="2px"
+          borderColor={"gray.300"}
+          borderRadius="xl"
+          padding="24px 18px"
+        >
+          <TableContainer w={"full"}>
+            <Table variant="striped" className="bg-gray-200">
               <Thead>
                 <Tr>
-                  <Th>from</Th>
-                  <Th>to</Th>
-                  <Th >Status</Th>
+                  <Th>Name</Th>
+                  <Th>Symbol</Th>
+                  <Th>Balance</Th>
+                  <Th>Token Address </Th>
+                  <Th isNumeric>Decimal</Th>
                 </Tr>
               </Thead>
               <Tbody>
-                
-                  {tokenBalance.map(bal => (
-                      <Tr backgroundColor={"cyan"}>
-                          <Td>{bal.token.name}</Td>
-                          <Td>{bal.token.symbol}</Td>
-                          <Td>{bal.value}</Td>
-                      </Tr>
-                  ))}
+                {ERC20?.map((tx) => (
+                  <Tr key={tx?.hash} cursor="pointer">
+                    <Td>{tx?.name}</Td>
+                    <Td>{tx?.symbol}</Td>
+                    <Td>{weiToEth(tx?.balance)}</Td>
+                    <Td>{getEllipsisTxt(tx?.token_address || "")}</Td>
+                    <Td isNumeric>{tx.decimals}</Td>
+                  </Tr>
+                ))}
               </Tbody>
               <Tfoot>
                 <Tr>
-                  <Th>from</Th>
-                  <Th>to</Th>
-                  <Th >status</Th>
+                  <Th>Name</Th>
+                  <Th>Symbol</Th>
+                  <Th>Balance</Th>
+                  <Th>Token Address </Th>
+                  <Th isNumeric>Decimal</Th>
                 </Tr>
               </Tfoot>
             </Table>
           </TableContainer>
-        </div>
-      </div>
-    );
-  };
-  
-  export const getServerSideProps = async (context) => {
-      const session = await getSession(context)
-  
-  
-  await Moralis.start({
-      apiKey: process.env.MORALIS_API_KEY
-  });
-  
-  if (!session?.user.address) {
-      return { props: { error: 'Connect your wallet first' } };
-    }
+        </Box>
+      ) : (
+        <Box>Looks Like you do not have any transactions</Box>
+      )}
+    </>
+  );
+};
 
-  
-  
-  const response = await Moralis.EvmApi.token.getWalletTokenBalances({
-      address: session?.user?.address,
-      chain: session?.user?.chainId
-  });
-  
-      return {
-          props: {
-              tokenBalance: JSON.parse(JSON.stringify(response.result))
-          }
-      }
-  
-  }
-  
-  
-  export default ERC20Balances;
-  
+export default ERC20Balances;
