@@ -58,8 +58,8 @@ const ERC20Balances = () => {
                 </Tr>
               </Thead>
               <Tbody>
-                {ERC20?.map((tx) => (
-                  <Tr key={tx?.hash} cursor="pointer">
+                {ERC20?.map((tx, index) => (
+                  <Tr key={index} cursor="pointer">
                     <Td>{tx?.name}</Td>
                     <Td>{tx?.symbol}</Td>
                     <Td>{weiToEth(tx?.balance)}</Td>

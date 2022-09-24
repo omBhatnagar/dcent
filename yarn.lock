@@ -1393,6 +1393,7 @@
   resolved "https://registry.yarnpkg.com/@metamask/safe-event-emitter/-/safe-event-emitter-2.0.0.tgz#af577b477c683fad17c619a78208cede06f9605c"
   integrity sha512-/kSXhY692qiV1MXu6EeOZvg5nECLclxNXcKCxJ3cXQgYuRymRHpdx/t7JXfsK+JLjwA1e1c1/SBrlQYpusC29Q==
 
+<<<<<<< HEAD
 "@moralisweb3/api-utils@^2.5.5":
   version "2.5.5"
   resolved "https://registry.yarnpkg.com/@moralisweb3/api-utils/-/api-utils-2.5.5.tgz#f238ee5a81d56a13a0bf02e4cc996cebc91bbf37"
@@ -1414,11 +1415,35 @@
   version "2.5.5"
   resolved "https://registry.yarnpkg.com/@moralisweb3/core/-/core-2.5.5.tgz#00d31729ce1ad0a758db26ad2b2882fcb56e3cde"
   integrity sha512-xCeFxZ9LMP20dRa72aVyl5BO0mRrq0ZcxYkrayPg02sZpsA/DZnGvqGyIpPGw1oQxg2Xqg+hpvOZGkyXAyn/pg==
+=======
+"@moralisweb3/api-utils@^2.5.6":
+  version "2.5.6"
+  resolved "https://registry.yarnpkg.com/@moralisweb3/api-utils/-/api-utils-2.5.6.tgz#7ce9d4946af93c8956fa8458f099a8578f845095"
+  integrity sha512-amzSqILs34wzC7UpWmo3TvYdsT1acCFewi+1jnbUaJRHCAz80jgSdkSJVfhr+XsRigN2MSTQl7Fj65RjNXQosA==
+  dependencies:
+    "@moralisweb3/core" "^2.5.6"
+
+"@moralisweb3/auth@^2.5.6":
+  version "2.5.6"
+  resolved "https://registry.yarnpkg.com/@moralisweb3/auth/-/auth-2.5.6.tgz#d24077e0498b1c53eddbd8ea3193dd8c3a40f882"
+  integrity sha512-jxH5hpRovpF9LmVMDBx/86frRctThMpx7biSEwc8pib6tZt1QfY7YD/U9JS+ZvOZ6LHpAGlbp+kozqRAPeEqOQ==
+  dependencies:
+    "@moralisweb3/api-utils" "^2.5.6"
+    "@moralisweb3/core" "^2.5.6"
+    "@moralisweb3/evm-utils" "^2.5.6"
+    "@moralisweb3/sol-utils" "^2.5.6"
+
+"@moralisweb3/core@^2.5.6":
+  version "2.5.6"
+  resolved "https://registry.yarnpkg.com/@moralisweb3/core/-/core-2.5.6.tgz#005fb0d6485303474d75438c522fe3775b8ed91e"
+  integrity sha512-l/BEafS3zTeWbaf1vpwTssqfkM77weLZhCu0bLMuyS6Gc/e+l+O8oE7hiVSBX5vHxBQ7N32orIcZn0btbkvafA==
+>>>>>>> d4d59b831bd7c11c194b9ae825a308dbf725eac4
   dependencies:
     axios "^0.27.2"
     eventemitter3 "^4.0.7"
     typed-emitter "^2.1.0"
 
+<<<<<<< HEAD
 "@moralisweb3/evm-api@^2.5.5":
   version "2.5.5"
   resolved "https://registry.yarnpkg.com/@moralisweb3/evm-api/-/evm-api-2.5.5.tgz#ad1ad1a56ed10cd3918850323b3c04c17c3c76a4"
@@ -1452,6 +1477,41 @@
   integrity sha512-wco+Yn9mgGuthXV6d5RNXXXjybThgMcwGkZv2bT4zNyziCz6ka9J6aWENV6hSjxNYKeYSlOYCTAWHqgXHbIIBQ==
   dependencies:
     "@moralisweb3/core" "^2.5.5"
+=======
+"@moralisweb3/evm-api@^2.5.6":
+  version "2.5.6"
+  resolved "https://registry.yarnpkg.com/@moralisweb3/evm-api/-/evm-api-2.5.6.tgz#ed458a7018b6bd1d73fa6cb9dfe691ef68433783"
+  integrity sha512-2erJ9ItqhHc206nKnjWHDXiQ9F/0wW6eh6cUcTudq+V/uj5awS5VGmKR5bpvP0ctjiVtRBrTmIXKRYletB/apA==
+  dependencies:
+    "@moralisweb3/api-utils" "^2.5.6"
+    "@moralisweb3/core" "^2.5.6"
+    "@moralisweb3/evm-utils" "^2.5.6"
+
+"@moralisweb3/evm-utils@^2.5.6":
+  version "2.5.6"
+  resolved "https://registry.yarnpkg.com/@moralisweb3/evm-utils/-/evm-utils-2.5.6.tgz#79b5a2af25f5e4542032ad133ce1b44da42f5ce7"
+  integrity sha512-C24LpiWy/2v2IMd2K3CqEHn9fv5ia47c5WOvd8EusW1pDbupc9B/1f/pvb3mgLDH5q6PsT+GIkxpo9pXI+bSaQ==
+  dependencies:
+    "@ethersproject/address" "^5.6.0"
+    "@ethersproject/transactions" "^5.6.0"
+    "@moralisweb3/core" "^2.5.6"
+
+"@moralisweb3/sol-api@^2.5.6":
+  version "2.5.6"
+  resolved "https://registry.yarnpkg.com/@moralisweb3/sol-api/-/sol-api-2.5.6.tgz#a9f690bf6768f5146baf5a9339442d2adfb9edfa"
+  integrity sha512-9B5GRqFg2iWte8VfHSvRez6lxGOngsUlHHUpUvLq+E+atl7P3X3hT2ZbkpE8I4SOKD0qbnYpz6OPkx/JsxuNIg==
+  dependencies:
+    "@moralisweb3/api-utils" "^2.5.6"
+    "@moralisweb3/core" "^2.5.6"
+    "@moralisweb3/sol-utils" "^2.5.6"
+
+"@moralisweb3/sol-utils@^2.5.6":
+  version "2.5.6"
+  resolved "https://registry.yarnpkg.com/@moralisweb3/sol-utils/-/sol-utils-2.5.6.tgz#204f5698d4bfe20430fdf0bbff8535d847cfe77c"
+  integrity sha512-1Thl85TgHRpOifqCjXFoLebVXdw79YSKFwXktmfdUPXT8Q4Wj1MPt3LXsbTHrbpbKNnXk02s0C++Aehl32GBVA==
+  dependencies:
+    "@moralisweb3/core" "^2.5.6"
+>>>>>>> d4d59b831bd7c11c194b9ae825a308dbf725eac4
     "@solana/web3.js" "^1.56.2"
 
 "@moralisweb3/streams-typings@^1.0.2":
@@ -1459,6 +1519,7 @@
   resolved "https://registry.yarnpkg.com/@moralisweb3/streams-typings/-/streams-typings-1.0.2.tgz#4af8bb0755fe2556a7e728092d9bf717afe2eca2"
   integrity sha512-LzxH7QxqlDtzXIr2x7OS/foiY+6BLSiojTgIkWJoEjJbvxWtYVmZIpQqpsqCwqhNJGkL+CJH38VxPFPI7haN3Q==
 
+<<<<<<< HEAD
 "@moralisweb3/streams@^2.5.5":
   version "2.5.5"
   resolved "https://registry.yarnpkg.com/@moralisweb3/streams/-/streams-2.5.5.tgz#11471cbfa59f19c16013b887be834af937eba895"
@@ -1467,6 +1528,16 @@
     "@moralisweb3/api-utils" "^2.5.5"
     "@moralisweb3/core" "^2.5.5"
     "@moralisweb3/evm-utils" "^2.5.5"
+=======
+"@moralisweb3/streams@^2.5.6":
+  version "2.5.6"
+  resolved "https://registry.yarnpkg.com/@moralisweb3/streams/-/streams-2.5.6.tgz#15b9b0a064de513c4e704fead2d1a82b81c0b280"
+  integrity sha512-schMnb7wfR9/gFi8VgwPEQ9Pm8zpdbA2ts16Hi5miJK40Dib5Y97v2Sx6MUXIbdJ7FkiAAB6b9K2EIsqVicfIQ==
+  dependencies:
+    "@moralisweb3/api-utils" "^2.5.6"
+    "@moralisweb3/core" "^2.5.6"
+    "@moralisweb3/evm-utils" "^2.5.6"
+>>>>>>> d4d59b831bd7c11c194b9ae825a308dbf725eac4
     "@moralisweb3/streams-typings" "^1.0.2"
     ethereumjs-util "^7.1.0"
     web3-eth-abi "^1.8.0"
@@ -2535,9 +2606,15 @@ camelcase@^5.0.0:
   integrity sha512-L28STB170nwWS63UjtlEOE3dldQApaJXZkOI1uMFfzf3rRuPegHaHesyee+YxQ+W6SvRDQV6UrdOdRiR153wJg==
 
 caniuse-lite@^1.0.30001400, caniuse-lite@^1.0.30001406, caniuse-lite@^1.0.30001407:
+<<<<<<< HEAD
   version "1.0.30001409"
   resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001409.tgz#6135da9dcab34cd9761d9cdb12a68e6740c5e96e"
   integrity sha512-V0mnJ5dwarmhYv8/MzhJ//aW68UpvnQBXv8lJ2QUsvn2pHcmAuNtu8hQEDz37XnA1iE+lRR9CIfGWWpgJ5QedQ==
+=======
+  version "1.0.30001410"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30001410.tgz#b5a86366fbbf439d75dd3db1d21137a73e829f44"
+  integrity sha512-QoblBnuE+rG0lc3Ur9ltP5q47lbguipa/ncNMyyGuqPk44FxbScWAeEO+k5fSQ8WekdAK4mWqNs1rADDAiN5xQ==
+>>>>>>> d4d59b831bd7c11c194b9ae825a308dbf725eac4
 
 chalk@^2.0.0:
   version "2.4.2"
@@ -2876,9 +2953,15 @@ eip1193-provider@1.0.1:
     "@json-rpc-tools/provider" "^1.5.5"
 
 electron-to-chromium@^1.4.251:
+<<<<<<< HEAD
   version "1.4.257"
   resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.257.tgz#895dc73c6bb58d1235dc80879ecbca0bcba96e2c"
   integrity sha512-C65sIwHqNnPC2ADMfse/jWTtmhZMII+x6ADI9gENzrOiI7BpxmfKFE84WkIEl5wEg+7+SfIkwChDlsd1Erju2A==
+=======
+  version "1.4.258"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.258.tgz#44c5456f487be082f038282fbcfd7b06ae99720d"
+  integrity sha512-vutF4q0dTUXoAFI7Vbtdwen/BJVwPgj8GRg/SElOodfH7VTX+svUe62A5BG41QRQGk5HsZPB0M++KH1lAlOt0A==
+>>>>>>> d4d59b831bd7c11c194b9ae825a308dbf725eac4
 
 elliptic@6.5.4, elliptic@^6.5.2, elliptic@^6.5.4:
   version "6.5.4"
@@ -4257,6 +4340,7 @@ minimist@^1.2.0, minimist@^1.2.6:
   integrity sha512-Jsjnk4bw3YJqYzbdyBiNsPWHPfO++UGG749Cxs6peCu5Xg4nrena6OVxOYxrQTqww0Jmwt+Ref8rggumkTLz9Q==
 
 moralis@^2.4.0:
+<<<<<<< HEAD
   version "2.5.5"
   resolved "https://registry.yarnpkg.com/moralis/-/moralis-2.5.5.tgz#2f3e05e47ff563d97e261c800f39db11f651118e"
   integrity sha512-sUJVhzvulx7sfi2J6hW005HgTJvBx8K7ypvFK4wYRe0qIoa1zmEX5KCmxG6N6YS20t4mgGD9LRO+dfYJdgNzSA==
@@ -4269,6 +4353,20 @@ moralis@^2.4.0:
     "@moralisweb3/sol-api" "^2.5.5"
     "@moralisweb3/sol-utils" "^2.5.5"
     "@moralisweb3/streams" "^2.5.5"
+=======
+  version "2.5.6"
+  resolved "https://registry.yarnpkg.com/moralis/-/moralis-2.5.6.tgz#919d32c1875dfb877fbb5675ac2c7e787f6cd76b"
+  integrity sha512-0TNP4MqxDfoyOfevL2xQL/MJl/EtBiOoMXoK7Xq4OUw9Gxdii9DQmNWuDb0CiDZCyMl2W5fBwEskY6lhXys8Kw==
+  dependencies:
+    "@moralisweb3/api-utils" "^2.5.6"
+    "@moralisweb3/auth" "^2.5.6"
+    "@moralisweb3/core" "^2.5.6"
+    "@moralisweb3/evm-api" "^2.5.6"
+    "@moralisweb3/evm-utils" "^2.5.6"
+    "@moralisweb3/sol-api" "^2.5.6"
+    "@moralisweb3/sol-utils" "^2.5.6"
+    "@moralisweb3/streams" "^2.5.6"
+>>>>>>> d4d59b831bd7c11c194b9ae825a308dbf725eac4
 
 ms@2.0.0:
   version "2.0.0"
@@ -5449,7 +5547,11 @@ uuid@^8.3.2:
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-8.3.2.tgz#80d5b5ced271bb9af6c445f21a1a04c606cefbe2"
   integrity sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==
 
+<<<<<<< HEAD
 wagmi@^0.6.6:
+=======
+wagmi@^0.6.7:
+>>>>>>> d4d59b831bd7c11c194b9ae825a308dbf725eac4
   version "0.6.7"
   resolved "https://registry.yarnpkg.com/wagmi/-/wagmi-0.6.7.tgz#1069c4678105105ba8d91f07b7ef3a5be0cb5831"
   integrity sha512-cKGZxLctMnODXLycCCcH0Q6yc3ed580odxH6CB/V9b7UUotwHqImPfg0outzE7TJpQ6YDD83RJNPf2Ez7U4o7w==
