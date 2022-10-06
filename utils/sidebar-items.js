@@ -31,4 +31,10 @@ export const SidebarItems = [
     icon: <MdOutlineDashboard />,
     path: "/balances/erc20",
   },
+  {
+    id: 5,
+    title: "Wallet",
+    icon: <MdOutlineDashboard />,
+    path: "/wallet",
+  },
 ];
