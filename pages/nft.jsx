@@ -1,13 +1,18 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Moralis from "moralis";
 import { Select } from "@chakra-ui/react";
 import NftCard from "../components/nft-card";
 import { useAccount } from "wagmi";
+import AppContext from "../context/AppContext";
 
 const Nfts = () => {
-	const [chain, setChain] = useState("0x1");
+	const value = useContext(AppContext);
+	const {
+		state: { chainId },
+	} = value;
 	const [nfts, setNfts] = useState();
 
+	console.log(value.state.chainId);
 	const { address, isDisconnected } = useAccount();
 
 	useEffect(() => {
@@ -18,7 +23,7 @@ const Nfts = () => {
 			if (address) {
 				const response = await Moralis.EvmApi.nft.getWalletNFTs({
 					address,
-					chain,
+					chain: chainId,
 				});
 				console.log(response.data.result);
 				setNfts(
@@ -28,26 +33,10 @@ const Nfts = () => {
 				);
 			}
 		})();
-	}, [address, chain]);
+	}, [address, chainId]);
 
 	return (
 		<>
-			<div className='w-1/4 px-3 py-6'>
-				<Select
-					focusBorderColor='white'
-					bg='white'
-					borderColor='white'
-					placeholder='Select Chain'
-					value={chain}
-					onChange={(e) => setChain(e.target.value)}
-				>
-					<option value='0x1'>Ethereum Mainnet</option>
-					<option value='0x3'>Ropsten</option>
-					<option value='0x4'>Rinkeby</option>
-					<option value='0x89'>Polygon</option>
-					<option value='0x86a'>Avalanche</option>
-				</Select>
-			</div>
 			<div className='flex flex-wrap justify-between items-center gap-y-12 bg-background-dark px-6'>
 				{isDisconnected && (
 					<div className='flex justify-center text-2xl text-bold h-[100vh] text-white items-center w-full'>
