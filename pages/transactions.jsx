@@ -30,7 +30,6 @@ const transactions = () => {
         chain: 3,
         limit: 10
       });
-      console.log("response", response.data.result);
       setTransactions(response.data.result)
     })();
   }, []);
