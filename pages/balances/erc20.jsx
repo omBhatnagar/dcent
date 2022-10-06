@@ -10,35 +10,56 @@ import {
   Heading,
   Box,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Moralis from "moralis";
 import { getEllipsisTxt } from "../../utils/format";
 import { weiToEth } from "../../utils/weiToEth";
+import AppContext from "../../context/AppContext";
+import { useAccount } from "wagmi";
 
 const ERC20Balances = () => {
   const [ERC20, setERC20] = useState();
+  const [error, setError] = useState("");
+  const value = useContext(AppContext);
+  const {
+    state: { chainId },
+  } = value;
+  console.log(value.state.chainId);
+  const { address, isDisconnected } = useAccount();
 
   useEffect(() => {
     (async () => {
       await Moralis.start({
-        apiKey:
-          "VSrOoiuUp303vcqi8Od52Pg8kcZFhOKCBf3SfHP7eQYGl7GN2dfw4mbxoJCYvZAA",
+        apiKey: process.env.NEXT_PUBLIC_API_KEY,
       });
 
-      const response = await Moralis.EvmApi.token.getWalletTokenBalances({
-        address: "0xABf3656c9AD45800171D582b83929B00C7F32b49",
-        chain: 3,
-        limit: 10,
-      });
-      setERC20(response.data);
+      try {
+        const response = await Moralis.EvmApi.token.getWalletTokenBalances({
+          address,
+          chain: chainId,
+          limit: 10,
+        });
+        setERC20(response.data);
+        console.log(response.data.result);
+        setError("");
+      } catch (error) {
+        console.log("Error: ", error.message);
+        setTransactions("");
+        setError(error.message);
+      }
     })();
-  }, []);
+  }, [chainId, address]);
 
   return (
     <>
       <Heading size="lg" marginBottom={6} marginTop={10}>
         ERC20Balances
       </Heading>
+      {isDisconnected && (
+        <div className="flex justify-center text-2xl text-bold h-[100vh] text-white items-center w-full">
+          Please Connect Your Wallet
+        </div>
+      )}
       {ERC20?.length ? (
         <Box
           border="2px"
@@ -81,7 +102,13 @@ const ERC20Balances = () => {
           </TableContainer>
         </Box>
       ) : (
-        <Box>Looks Like you do not have any transactions</Box>
+        <>
+          {!error ? (
+            <div>Looks Like you do not have any ERC20 tokens</div>
+            ) : (
+            <Box>{error}</Box>
+          )} 
+        </>
       )}
     </>
   );
