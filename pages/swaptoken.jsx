@@ -7,7 +7,7 @@ import { useSendTransaction } from "wagmi";
 // gets a prop from getServerSideProps
 function SwapToken({ balance }) {
     const [fromToken] = useState("0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE");
-    const [toToken, setToToken] = useState("0xA6FA4fB5f76172d178d61B04b0ecd319C5d1C0aa");
+    const [toToken, setToToken] = useState("0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889");
     const [value, setValue] = useState("1000000000000000000");
     const [valueExchanged, setValueExchanged] = useState("");
     const [valueExchangedDecimals, setValueExchangedDecimals] = useState(1E18);
@@ -15,7 +15,6 @@ function SwapToken({ balance }) {
     const [txData, setTxData] = useState("");
 
     const address = `0xABf3656c9AD45800171D582b83929B00C7F32b49`
-
     const { data, isLoading, isSuccess, sendTransaction } = useSendTransaction({
       request: {
           from: address,
@@ -37,7 +36,7 @@ function SwapToken({ balance }) {
   }
 
   async function get1inchSwap(){
-    const tx = await axios.get(`https://api.1inch.io/v4.0/137/swap?fromTokenAddress=${fromToken}&toTokenAddress=${toToken}&amount=${value}&fromAddress=${user.address}&slippage=5`);    
+    const tx = await axios.get(`https://api.1inch.io/v4.0/137/swap?fromTokenAddress=${fromToken}&toTokenAddress=${toToken}&amount=${value}&fromAddress=${address}&slippage=1`);    
     console.log(tx.data)
     setTo(tx.data.tx.to);
     setTxData(tx.data.tx.data);
@@ -46,7 +45,7 @@ function SwapToken({ balance }) {
   }
 
     return (
-        <div>
+        <div className="bg-white">
             <div>User: {address}</div>
             <div>Your Eth balance: { parseFloat(weiToEth(balance.balance)).toFixed(3 )}</div>
             <select>
@@ -64,7 +63,7 @@ function SwapToken({ balance }) {
       <br />
       <br />
       <select name="toToken" value={toToken} onChange={(e) => changeToToken(e)}>
-        <option value="0xA6FA4fB5f76172d178d61B04b0ecd319C5d1C0aa">WETH</option>
+        <option value="0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889">WETH</option>
         {/* <option value="0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174">USDC</option> */}
       </select>
       <input

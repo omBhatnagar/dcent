@@ -13,6 +13,7 @@
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "axios": "^0.27.2",
+    "connectkit": "^0.0.2",
     "ethers": "^5.7.1",
     "framer-motion": "^6",
     "moralis": "^2.4.0",
@@ -20,8 +21,8 @@
     "next-auth": "^4.10.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "wagmi": "^0.6.6",
-    "react-icons": "^4.4.0"
+    "react-icons": "^4.4.0",
+    "wagmi": "^0.6.7"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.9",
