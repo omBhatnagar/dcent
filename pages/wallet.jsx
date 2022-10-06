@@ -7,9 +7,14 @@ import {
   TabPanels,
   Tabs,
 } from "@chakra-ui/react";
+import Moralis from "moralis";
 import React, { useState } from "react";
+import { ethers } from "ethers";
 
 const Wallet = () => {
+  const [error, setError] = useState();
+  const [txs, setTxs] = useState([]);
+
   const ETHTransfer = () => {
     const [formValues, setFormValues] = useState({
       to: "",
@@ -23,16 +28,37 @@ const Wallet = () => {
       });
     };
 
-    const handleSendETH = async () => {
-      const options = {
-        type: "native",
-        amount: Moralis.units.ETH(formValues.amount),
-        receiver: formValues.to,
-      };
+    const startPayment = async ({ ether, addr }) => {
+      try {
+        if (!window.ethereum) {
+          throw Error("No crypto wallet found. Please install it.");
+        }
 
-      let result = await Moralis.transfer(options);
-      console.log(result);
+        await window.ethereum.request({ method: "eth_requestAccounts" });
+        const provider = new ethers.providers.Web3Provider(window.ethereum);
+        const signer = provider.getSigner();
+        ethers.utils.getAddress(addr);
+        const tx = await signer.sendTransaction({
+          to: addr,
+          value: ethers.utils.parseEther(ether),
+        });
+        console.log({ ether, addr });
+        console.log("tx", tx);
+        setTxs([tx]);
+      } catch (err) {
+        setError(err.message);
+      }
     };
+
+    const handleSendETH = async (e) => {
+      e.preventDefault();
+
+      await startPayment({
+        ether: formValues.amount,
+        addr: formValues.to,
+      });
+    };
+
     return (
       <div className="flex flex-col gap-2">
         <Input
@@ -74,7 +100,7 @@ const Wallet = () => {
         type: "erc20",
         amount: Moralis.units.ETH(formValues.amount, formValues.decimals),
         receiver: formValues.to,
-        contract_address: formValues.contract_address,
+        contractAddress: formValues.contract_address,
       };
 
       let result = await Moralis.transfer(options);
@@ -134,5 +160,13 @@ const Wallet = () => {
     </div>
   );
 };
+
+// export const getServerSideProps = async (context) => {
+//   await Moralis.start({ apiKey: process.env.MORALIS_API_KEY });
+
+//   return {
+//     props: {},
+//   }
+// }
 
 export default Wallet;
