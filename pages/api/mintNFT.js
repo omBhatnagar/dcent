@@ -27,7 +27,9 @@ export default async function mintNFT(req, res) {
 	};
 	try {
 		await theModule.mintTo(walletAddress, nftData);
-		res.status(200).end();
+		res.status(200).send({
+			message: "Successfully minted!",
+		});
 	} catch (error) {
 		console.log(error);
 		res.json(error);
