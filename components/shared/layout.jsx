@@ -4,7 +4,7 @@ import Sidebar from "./sidebar";
 import Topbar from "./topbar";
 
 const Layout = ({ children }) => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   return (
     <div className="flex w-full">

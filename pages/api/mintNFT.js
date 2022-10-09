@@ -19,11 +19,11 @@ export default async function mintNFT(req, res) {
 	);
 	const sdk = new ThirdwebSDK(wallet);
 	const theModule = sdk.getNFTModule(MODULE_ADDRESS);
-	// const image = fs.readFileSync("../../public/dcentNFT.jpg");
+	const image = fs.readFileSync("public/dcentNFT.jpg");
 	const nftData = {
 		name: "DCent",
 		description: "A decent NFT.",
-		image: dcentNFT,
+		image: "ipfs://Qmcek5FkWAk9x8VP3uXaemZyKpjqcaTYjP4LMfv8NodJVN",
 	};
 	try {
 		await theModule.mintTo(walletAddress, nftData);

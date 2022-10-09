@@ -66,13 +66,12 @@ const Nfts = () => {
 
 					<div className='flex flex-wrap justify-around items-center gap-y-12 bg-background-dark px-6'>
 						{nfts?.map((nft) => {
-							console.log(nft.description, defImg);
 							const image =
-								nft.image instanceof String
-									? nft.image.substring(0, 4) == "ipfs"
-										? "https://ipfs.io/" + nft.image
-										: nft.image
-									: defImg;
+								typeof nft.image === "string" 
+									? nft.image.replace("ipfs://", "https://ipfs.io/ipfs/")
+										: nft.image;
+									
+									console.log("Image: ", nft.name, typeof nft.image )
 							return (
 								<NftCard
 									key={nft.hash}
