@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import React, { useEffect, useState } from "react";
 import Moralis from "moralis";
-import { getEllipsisTxt } from "../../utils/format";
+import { getEllipsisTxt } from "../../utils/getEllipsisTxt";
 import { weiToEth } from "../../utils/weiToEth";
 
 const ERC20Balances = () => {

@@ -1,6 +1,5 @@
 import { ethers } from "ethers";
 
-export const weiToEth = (str) => {
-    let eth = ethers.utils.formatEther(str);
-    return eth;
-}
+export const weiToEth = (wei) => {
+  return ethers.utils.formatEther(wei);
+};
