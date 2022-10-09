@@ -10,34 +10,57 @@ import {
   Heading,
   Box,
 } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Moralis from "moralis";
 import { getEllipsisTxt } from "../utils/format";
+import AppContext from "../context/AppContext";
+import { useAccount } from "wagmi";
 
 const transactions = () => {
   const [transactions, setTransactions] = useState();
+  const [error, setError] = useState("");
+  const value = useContext(AppContext);
+  const {
+    state: { chainId },
+  } = value;
+  console.log(value.state.chainId);
+  const { address, isDisconnected } = useAccount();
 
   useEffect(() => {
     (async () => {
       await Moralis.start({
-        apiKey:
-          "VSrOoiuUp303vcqi8Od52Pg8kcZFhOKCBf3SfHP7eQYGl7GN2dfw4mbxoJCYvZAA",
+        apiKey: process.env.NEXT_PUBLIC_API_KEY,
       });
 
-      const response = await Moralis.EvmApi.transaction.getWalletTransactions({
-        address: "0xABf3656c9AD45800171D582b83929B00C7F32b49",
-        chain: 4,
-        limit: 10,
-      });
-      setTransactions(response.data.result);
+      try {
+        const response = await Moralis.EvmApi.transaction.getWalletTransactions(
+          {
+            address,
+            chain: chainId,
+            limit: 10,
+          }
+        );
+        setTransactions(response.data.result);
+        console.log(response.data.result);
+        setError("");
+      } catch (error) {
+        console.log("Error: ", error.message);
+        setTransactions("");
+        setError(error.message);
+      }
     })();
-  }, []);
+  }, [chainId, address]);
 
   return (
     <>
       <Heading size="lg" marginBottom={6} marginTop={10}>
         Transactions
       </Heading>
+      {isDisconnected && (
+        <div className="flex justify-center text-2xl text-bold h-[100vh] text-white items-center w-full">
+          Please Connect Your Wallet
+        </div>
+      )}
       {transactions?.length ? (
         <Box
           border="2px"
@@ -64,7 +87,7 @@ const transactions = () => {
                     <Td>{getEllipsisTxt(tx?.from_address || "")}</Td>
                     <Td>{getEllipsisTxt(tx?.to_address || "")}</Td>
                     <Td>{tx.gas}</Td>
-                    <Td>{new Date(tx.blockTimestamp).toLocaleDateString()}</Td>
+                    <Td>{new Date(tx.block_timestamp).toLocaleDateString()}</Td>
                     <Td isNumeric>{tx.receipt_status}</Td>
                   </Tr>
                 ))}
@@ -83,7 +106,13 @@ const transactions = () => {
           </TableContainer>
         </Box>
       ) : (
-        <Box>Looks Like you do not have any transactions</Box>
+        <>
+          {!error ? (
+            <div>Looks Like you do not have any transactions</div>
+            ) : (
+            <Box>{error}</Box>
+          )}
+        </>
       )}
     </>
   );
