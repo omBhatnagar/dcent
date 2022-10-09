@@ -9,10 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@3rdweb/sdk": "^1.42.1",
     "@chakra-ui/react": "^2.2.9",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "axios": "^0.27.2",
+    "@usedapp/core": "^1.1.5",
     "connectkit": "^0.0.2",
     "ethers": "^5.7.1",
     "framer-motion": "^6",
