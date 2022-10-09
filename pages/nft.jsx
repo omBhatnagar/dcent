@@ -3,6 +3,7 @@ import Moralis from "moralis";
 import NftCard from "../components/nft-card";
 import { useAccount } from "wagmi";
 import AppContext from "../context/AppContext";
+import defImg from "../public/dcentNFT.jpg";
 
 const Nfts = () => {
 	const value = useContext(AppContext);
@@ -63,15 +64,15 @@ const Nfts = () => {
 						{`${loading ? "Minting..." : "Mint a DCent NFT!"}`}
 					</button>
 
-					<div className='flex flex-wrap justify-between items-center gap-y-12 bg-background-dark px-6'>
+					<div className='flex flex-wrap justify-around items-center gap-y-12 bg-background-dark px-6'>
 						{nfts?.map((nft) => {
-							console.log(nft.image);
+							console.log(nft.description, defImg);
 							const image =
 								nft.image instanceof String
 									? nft.image.substring(0, 4) == "ipfs"
 										? "https://ipfs.io/" + nft.image
 										: nft.image
-									: nft.image;
+									: defImg;
 							return (
 								<NftCard
 									key={nft.hash}
