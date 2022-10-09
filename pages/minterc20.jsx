@@ -1,16 +1,24 @@
 import { useEffect, useState } from "react";
 import { useAccount } from "wagmi";
+import {
+	NumberInput,
+	NumberInputField,
+	NumberInputStepper,
+	NumberIncrementStepper,
+	NumberDecrementStepper,
+} from "@chakra-ui/react";
 
 const Minterc20 = () => {
 	const { address, isDisconnected } = useAccount();
 
 	const [loading, setLoading] = useState(false);
 	const [amount, setAmount] = useState(10);
+	const [balance, setBalance] = useState(0);
 
 	const onMintHandler = async () => {
 		const data = {
 			address,
-			amount,
+			amount: parseInt(amount),
 		};
 		setLoading(true);
 		const response = await fetch("/api/mintERC20", {
@@ -29,7 +37,6 @@ const Minterc20 = () => {
 			const data = {
 				address,
 			};
-
 			const response = await fetch("/api/getDcentERC20", {
 				method: "POST",
 				headers: {
@@ -37,8 +44,9 @@ const Minterc20 = () => {
 				},
 				body: JSON.stringify(data),
 			});
-			const balance = await response.json();
-			console.log("BALANCE", balance);
+			const _balance = await response.json();
+			console.log(_balance);
+			setBalance(_balance.data.displayValue);
 		})();
 	}, [address]);
 
@@ -49,14 +57,32 @@ const Minterc20 = () => {
 					Please Connect Your Wallet
 				</div>
 			) : (
-				<div>
-					<button
-						className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded'
-						onClick={onMintHandler}
+				<>
+					<NumberInput
+						defaultValue={10}
+						min={1}
+						max={100}
+						value={amount}
+						onChange={(numVal) => setAmount(numVal)}
 					>
-						{`${loading ? "Minting..." : "Mint DCent tokens!"}`}
-					</button>
-				</div>
+						<NumberInputField />
+						<NumberInputStepper>
+							<NumberIncrementStepper />
+							<NumberDecrementStepper />
+						</NumberInputStepper>
+					</NumberInput>
+					<div>
+						<button
+							className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 border border-blue-700 rounded'
+							onClick={onMintHandler}
+						>
+							{`${loading ? "Minting..." : "Mint DCent tokens!"}`}
+						</button>
+					</div>
+					<div>
+						<h2>Your DCent balance is: {balance} DCT</h2>
+					</div>
+				</>
 			)}
 		</div>
 	);
