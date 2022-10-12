@@ -3,7 +3,6 @@ import Moralis from "moralis";
 import NftCard from "../components/nft-card";
 import { useAccount } from "wagmi";
 import AppContext from "../context/AppContext";
-import defImg from "../public/dcentNFT.jpg";
 
 const Nfts = () => {
 	const value = useContext(AppContext);
