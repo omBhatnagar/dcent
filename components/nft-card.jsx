@@ -2,15 +2,14 @@ import { useState } from 'react';
 
 const NftCard = ({ name, description, image }) => {
 
-	const [imgSrc, setImgSrc] = useState(image);
+	console.log(name)
+	console.log(description)
 
 	
 
 	return (
 		<div className='max-w-sm rounded-lg border shadow-md bg-gray-800 border-gray-700'>
-			<img className='rounded-t-lg w-full h-full' src={imgSrc} alt='nft-image' onError={() => {
-                setImgSrc('/gigachad.jpg');
-            }} />
+			<img className='rounded-t-lg w-full h-full' src={image} alt='nft-image' onError={ (e) => e.target.src='/gigachad.jpg'}/>
 			<div className='p-5'>
 				<h5 className='mb-2 text-2xl font-bold tracking-tight text-white'>
 					{name}
