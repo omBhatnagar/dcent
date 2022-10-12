@@ -40,10 +40,13 @@ const Nfts = () => {
 					chain: chainId,
 				});
 				console.log(response.data.result);
+
 				setNfts(
-					response.data.result.map((item) => {
-						return JSON.parse(item.metadata);
-					}),
+					response.data?.result
+						.filter((item) => !!item.metadata)
+						.map((item) => {
+							return JSON.parse(item.metadata);
+						}),
 				);
 			}
 		})();
@@ -67,11 +70,11 @@ const Nfts = () => {
 					<div className='flex flex-wrap justify-around items-center gap-y-12 bg-background-dark px-6'>
 						{nfts?.map((nft) => {
 							const image =
-								typeof nft.image === "string" 
+								typeof nft.image === "string"
 									? nft.image.replace("ipfs://", "https://ipfs.io/ipfs/")
-										: nft.image;
-									
-									console.log("Image: ", nft.name, typeof nft.image )
+									: nft.image;
+
+							console.log("Image: ", nft.name, nft.image);
 							return (
 								<NftCard
 									key={nft.hash}
