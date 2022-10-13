@@ -66,7 +66,7 @@ const Nfts = () => {
             {`${loading ? "Minting..." : "Mint a DCent NFT!"}`}
           </button>
 
-          <div className="flex flex-wrap justify-around items-center gap-y-12 bg-background-dark px-6">
+          <div className="flex flex-wrap justify-around items-center gap-y-12 px-6">
             {nfts?.map((nft) => {
               console.log(nft.image, typeof nft.image);
               const image =

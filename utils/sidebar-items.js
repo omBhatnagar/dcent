@@ -35,4 +35,10 @@ export const SidebarItems = [
     icon: <BsWallet2 />,
     path: "/wallet",
   },
+  {
+    id: 6,
+    title: "Mint ERC 20",
+    icon: <BsWallet2 />,
+    path: "/minterc20",
+  },
 ];

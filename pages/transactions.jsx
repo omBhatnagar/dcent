@@ -37,7 +37,6 @@ const transactions = () => {
           {
             address,
             chain: chainId,
-            limit: 10,
           }
         );
         setTransactions(response.data.result);
@@ -109,7 +108,7 @@ const transactions = () => {
         <>
           {!error ? (
             <div>Looks Like you do not have any transactions</div>
-            ) : (
+          ) : (
             <Box>{error}</Box>
           )}
         </>
