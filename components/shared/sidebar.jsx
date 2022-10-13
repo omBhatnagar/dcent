@@ -12,13 +12,14 @@ const Sidebar = ({ setIsSidebarOpen }) => {
       >
         <AiOutlineClose />
       </div>
-      <div className="mx-auto my-8 w-20">
+      <div className="mx-auto my-8 max-w-max">
         {/* <img className="w-full" src={Logo} alt="logo" /> */}
         <Image
-          src="/static/logo.png"
+          className="mx-auto"
+          src="/static/logo-rect-2.png"
           alt="dcent logo"
-          width="100%"
-          height="100px"
+          width="190px"
+          height="60px"
         />
       </div>
       <div className="flex flex-col h-full overflow-y">
